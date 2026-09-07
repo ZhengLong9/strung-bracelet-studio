@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bodoni Moda", ui-serif, Georgia, serif;
+
+  /* Lapis Lazuli palette */
+  --color-bg: #f2f0e6;
+  --color-surface: #ffffff;
+  --color-ink: #202a3d;
+  --color-ink-soft: #5b6472;
+  --color-ink-faint: #9098a3;
+  --color-accent: #35427a;
+  --color-accent-hover: #262f5a;
+  --color-border: #d8d5c9;
+
+  /* Muted backdrop for the bracelet viewport — softer than pure white so
+     bead colors don't wash out against a bright glare. */
+  --color-canvas: #e4e2d8;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  font-family: var(--font-sans);
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
