@@ -66,7 +66,7 @@ export function SizeSelector({
           }
         }}
         title="Wrist size (cm)"
-        className="w-16 border border-border bg-surface px-2 py-1.5 text-center text-sm outline-none transition-colors focus:border-accent"
+        className="w-16 rounded-tag border border-border bg-surface px-2 py-1.5 text-center text-sm outline-none transition-colors focus:border-accent"
       />
       <div
         className="flex gap-1.5"
@@ -78,7 +78,7 @@ export function SizeSelector({
             key={mm}
             type="button"
             onClick={() => onChangeBeadDiameterMm(mm)}
-            className={`cursor-pointer border px-3 py-1.5 text-sm transition-colors ${
+            className={`cursor-pointer rounded-tag border px-3 py-1.5 text-sm transition-colors ${
               mm === beadDiameterMm
                 ? "border-accent bg-accent text-surface"
                 : "border-border bg-surface text-ink-soft hover:border-ink"

@@ -49,7 +49,7 @@ export function Bracelet3DView({ slots, maxSlots, onExit }: Bracelet3DViewProps)
 
       {removeErrorVisible && (
         <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center px-4">
-          <div className="animate-shake border border-amber-300 bg-amber-50 px-4 py-2 text-sm text-amber-800 shadow-lg">
+          <div className="animate-shake rounded-tag border border-accent/30 bg-surface px-4 py-2 text-sm text-accent-hover shadow-lg">
             Removing beads isn't available in the 3D preview
           </div>
         </div>

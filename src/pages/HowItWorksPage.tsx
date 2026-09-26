@@ -27,7 +27,7 @@ function Step({ number, title, children, illustration }: StepProps) {
   return (
     <li className="flex flex-col gap-4 border-t border-border pt-8 first:border-t-0 first:pt-0">
       <div className="flex items-start gap-3">
-        <span className="flex h-6 w-6 flex-none items-center justify-center border border-ink text-xs font-medium text-ink">
+        <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-accent text-xs font-medium text-surface">
           {number}
         </span>
         <div>
@@ -37,7 +37,7 @@ function Step({ number, title, children, illustration }: StepProps) {
           <p className="mt-1 max-w-xl text-sm text-ink-soft">{children}</p>
         </div>
       </div>
-      <div className="ml-9 flex justify-center border border-border bg-canvas p-6">
+      <div className="bead-mat ml-9 flex justify-center rounded-tray border border-border bg-canvas p-6">
         {illustration}
       </div>
     </li>

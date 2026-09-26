@@ -10,6 +10,7 @@ import { BeadLibrary } from "../components/BeadLibrary";
 import { ActionBar } from "../components/ActionBar";
 import { BEAD_CATALOG_BY_ID } from "../data/beads";
 import { saveBracelet } from "../lib/storage";
+import type { BeadDragPayload } from "../lib/beadDrag";
 import type {
   RingBackground,
   RingPlaceholderStyle,
@@ -31,6 +32,9 @@ export function DesignPage() {
     hasAnyBeads,
     addBead,
     removeBead,
+    placeBead,
+    moveBead,
+    clearAll,
     lastDroppedCount,
     clearDroppedNotice,
   } = useBraceletDesigner();
@@ -74,6 +78,11 @@ export function DesignPage() {
     };
   }
 
+  function handleDropBead(slotIndex: number, payload: BeadDragPayload) {
+    if (payload.source === "library") placeBead(payload.beadId, slotIndex);
+    else moveBead(payload.slotIndex, slotIndex);
+  }
+
   function handleSave() {
     saveBracelet(buildSnapshot());
     setJustSaved(true);
@@ -81,6 +90,19 @@ export function DesignPage() {
 
   return (
     <div className="flex flex-col items-center gap-5">
+      <div className="flex w-full flex-wrap items-center justify-center gap-2 sm:justify-end">
+        <RingStyleToggle
+          value={placeholderStyle}
+          onChange={setPlaceholderStyle}
+          disabled={is3DOpen}
+        />
+        <BackgroundToggle
+          value={ringBackground}
+          onChange={setRingBackground}
+          disabled={is3DOpen}
+        />
+      </div>
+
       <BraceletCanvasFrame
         slots={slots}
         maxSlots={maxSlots}
@@ -89,20 +111,7 @@ export function DesignPage() {
         background={ringBackground}
         placeholderStyle={placeholderStyle}
         onRemoveBead={removeBead}
-        topRightExtra={
-          <>
-            <BackgroundToggle
-              value={ringBackground}
-              onChange={setRingBackground}
-              disabled={is3DOpen}
-            />
-            <RingStyleToggle
-              value={placeholderStyle}
-              onChange={setPlaceholderStyle}
-              disabled={is3DOpen}
-            />
-          </>
-        }
+        onDropBead={handleDropBead}
         bottomLeft={<SlotCounter slotsLeft={slotsLeft} isFull={isFull} />}
       />
 
@@ -113,7 +122,7 @@ export function DesignPage() {
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
-              className="text-center text-xs text-amber-700"
+              className="text-center text-xs text-accent-hover"
             >
               {lastDroppedCount} bead{lastDroppedCount > 1 ? "s" : ""} removed
               &mdash; new size only fits {maxSlots}.
@@ -132,7 +141,7 @@ export function DesignPage() {
 
         <div className="hidden h-6 w-px bg-border sm:block" />
 
-        <ActionBar hasAnyBeads={hasAnyBeads} onSave={handleSave} />
+        <ActionBar hasAnyBeads={hasAnyBeads} onSave={handleSave} onClearAll={clearAll} />
       </div>
 
       <div className="flex min-h-4 items-center justify-center">

@@ -10,11 +10,15 @@ export interface Bead {
   id: string;
   name: string;
   colorLabel: string;
+  /** Flat swatch color for the color-chip tag in the library. */
+  swatchColor: string;
   priceModifier: number;
   /** Flat photo used for the 2D ring and library thumbnail. */
   image: string;
   /** GLB model used for the 3D viewer. */
   model: string;
+  /** Color laid over the clear crystal image/model. Omit for untinted crystal. */
+  tint?: string;
 }
 
 export interface PlacedBead {

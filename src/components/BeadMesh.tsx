@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
 import { useThree, type ThreeEvent } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
-import { Box3, Mesh, MeshPhysicalMaterial, Sphere } from "three";
+import { Box3, Color, Mesh, MeshPhysicalMaterial, Sphere } from "three";
 import type { Bead } from "../types/bracelet";
 import type { Vec3 } from "../lib/geometry3d";
 
@@ -44,15 +44,21 @@ export function BeadMesh({
     // ours isn't, so cap transmission and boost env reflections just enough
     // that the outer shell still shows a visible surface/silhouette instead
     // of disappearing and leaving only the internal shards visible.
+    // Materials are cloned because scene.clone() shares them across every
+    // bead, and each bead may carry its own tint.
+    const tint = bead.tint ? new Color(bead.tint) : null;
     clone.traverse((child) => {
       if (!(child instanceof Mesh)) return;
-      const material = child.material;
-      if (
-        material instanceof MeshPhysicalMaterial &&
-        material.transmission >= HIGH_TRANSMISSION_THRESHOLD
-      ) {
+      if (!(child.material instanceof MeshPhysicalMaterial)) return;
+      const material = child.material.clone();
+      child.material = material;
+      if (material.transmission >= HIGH_TRANSMISSION_THRESHOLD) {
         material.transmission = MAX_VISIBLE_TRANSMISSION;
         material.envMapIntensity = BOOSTED_ENV_MAP_INTENSITY;
+      }
+      if (tint) {
+        material.color.multiply(tint);
+        material.attenuationColor.copy(tint);
       }
     });
     const box = new Box3().setFromObject(clone);
@@ -65,7 +71,7 @@ export function BeadMesh({
       -sphere.center.z * scaleFactor,
     );
     return clone;
-  }, [scene, radius]);
+  }, [scene, radius, bead.tint]);
 
   function handlePointerDown(e: ThreeEvent<PointerEvent>) {
     dragDistance.current = 0;

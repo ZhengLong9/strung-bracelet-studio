@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { BraceletRing } from "./BraceletRing";
 import { Bracelet3DView } from "./Bracelet3DView";
 import { View3DToggle } from "./View3DToggle";
+import type { BeadDragPayload } from "../lib/beadDrag";
 import type { RingBackground, RingPlaceholderStyle, Slot } from "../types/bracelet";
 
 interface BraceletCanvasFrameProps {
@@ -12,7 +13,7 @@ interface BraceletCanvasFrameProps {
   background?: RingBackground;
   placeholderStyle?: RingPlaceholderStyle;
   onRemoveBead?: (slotIndex: number) => void;
-  topRightExtra?: ReactNode;
+  onDropBead?: (slotIndex: number, payload: BeadDragPayload) => void;
   bottomLeft?: ReactNode;
 }
 
@@ -24,17 +25,16 @@ export function BraceletCanvasFrame({
   background = "clear",
   placeholderStyle = "circles",
   onRemoveBead,
-  topRightExtra,
+  onDropBead,
   bottomLeft,
 }: BraceletCanvasFrameProps) {
   return (
     <div
-      className={`relative flex w-full justify-center border border-border bg-canvas ${
+      className={`bead-mat relative flex w-full justify-center rounded-tray border border-border bg-canvas ${
         is3DOpen ? "" : "p-7"
       }`}
     >
-      <div className="absolute right-3 top-3 z-10 flex flex-col items-end gap-1.5">
-        {topRightExtra}
+      <div className="absolute right-3 top-3 z-10">
         <View3DToggle active={is3DOpen} onToggle={onToggle3D} />
       </div>
 
@@ -47,6 +47,7 @@ export function BraceletCanvasFrame({
           slots={slots}
           maxSlots={maxSlots}
           onRemove={onRemoveBead}
+          onDropBead={onDropBead}
           readOnly={!onRemoveBead}
           background={background}
           placeholderStyle={placeholderStyle}

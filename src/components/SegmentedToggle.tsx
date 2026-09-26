@@ -22,7 +22,7 @@ export function SegmentedToggle<T extends string>({
 }: SegmentedToggleProps<T>) {
   return (
     <div
-      className={`inline-flex gap-1 border border-border bg-surface p-1 shadow-sm ${
+      className={`inline-flex gap-1 rounded-tag border border-border bg-surface p-1 shadow-sm ${
         disabled ? "opacity-50" : ""
       }`}
     >
@@ -41,7 +41,7 @@ export function SegmentedToggle<T extends string>({
             {isActive && (
               <motion.span
                 layoutId={layoutId}
-                className="absolute inset-0 bg-accent"
+                className="absolute inset-0 rounded-[4px] bg-accent"
                 transition={{ type: "spring", stiffness: 500, damping: 35 }}
               />
             )}

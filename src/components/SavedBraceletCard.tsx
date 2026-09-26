@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { BraceletCanvasFrame } from "./BraceletCanvasFrame";
+import { Tag } from "./Tag";
 import { slotsFromSavedEntry } from "../lib/snapshot";
 import type { SavedBraceletEntry } from "../types/bracelet";
 
@@ -21,11 +22,14 @@ export function SavedBraceletCard({ entry, onDelete }: SavedBraceletCardProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="text-sm text-ink">
-          {beadCount} bead{beadCount === 1 ? "" : "s"} &middot;{" "}
-          {entry.wristCircumferenceMm / 10} cm wrist &middot; {entry.beadDiameterMm} mm
-        </p>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap gap-1.5">
+          <Tag>
+            {beadCount} bead{beadCount === 1 ? "" : "s"}
+          </Tag>
+          <Tag>{entry.wristCircumferenceMm / 10} cm wrist</Tag>
+          <Tag>{entry.beadDiameterMm} mm beads</Tag>
+        </div>
         <p className="text-xs text-ink-faint">Saved {savedDate}</p>
       </div>
 
@@ -42,7 +46,7 @@ export function SavedBraceletCard({ entry, onDelete }: SavedBraceletCardProps) {
           onClick={() => onDelete(entry.id)}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.96 }}
-          className="border border-border bg-surface px-4 py-1.5 text-xs font-medium text-ink-soft shadow-sm hover:border-ink hover:text-ink cursor-pointer"
+          className="rounded-tag border border-border bg-surface px-4 py-1.5 text-xs font-medium text-ink-soft shadow-sm hover:border-ink hover:text-ink cursor-pointer"
         >
           Delete
         </motion.button>

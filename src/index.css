@@ -2,27 +2,42 @@
 
 @theme {
   --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Bodoni Moda", ui-serif, Georgia, serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
 
-  /* Lapis Lazuli palette */
-  --color-bg: #f2f0e6;
-  --color-surface: #ffffff;
-  --color-ink: #202a3d;
-  --color-ink-soft: #5b6472;
-  --color-ink-faint: #9098a3;
-  --color-accent: #35427a;
-  --color-accent-hover: #262f5a;
-  --color-border: #d8d5c9;
+  /* Bead-table palette — lifted from the catalog's own amber bead and the
+     walnut bowl the ring sits in, rather than a generic accent color. */
+  --color-bg: #efeae1;
+  --color-surface: #fbf8f2;
+  --color-ink: #2a2420;
+  --color-ink-soft: #6b6155;
+  --color-ink-faint: #a39a89;
+  --color-accent: #a5701d;
+  --color-accent-hover: #7e5714;
+  --color-border: #ddd2be;
+  --color-wood: #6b4423;
 
-  /* Muted backdrop for the bracelet viewport — softer than pure white so
-     bead colors don't wash out against a bright glare. */
-  --color-canvas: #e4e2d8;
+  /* Muted, faintly-woven backdrop for the bracelet viewport — softer than
+     pure white so bead colors don't wash out against a bright glare. */
+  --color-canvas: #e7dac4;
+
+  /* Small radius for tags/buttons/inputs; large radius for the tray that
+     holds the ring. Full circles (beads, slots, swatches) use rounded-full. */
+  --radius-tag: 6px;
+  --radius-tray: 28px;
 }
 
 body {
   margin: 0;
   background: var(--color-bg);
   font-family: var(--font-sans);
+}
+
+.bead-mat {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-wood) 14%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 14px 14px;
 }
 
 @keyframes shake {

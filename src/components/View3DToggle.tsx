@@ -20,7 +20,7 @@ const THUMB_X_ON = TRACK_INNER_WIDTH - THUMB_SIZE - THUMB_INSET;
 
 export function View3DToggle({ active, onToggle }: View3DToggleProps) {
   return (
-    <div className="inline-flex items-center gap-2 border border-border bg-surface px-2.5 py-1.5 shadow-sm">
+    <div className="inline-flex items-center gap-2 rounded-tag border border-border bg-surface px-2.5 py-1.5 shadow-sm">
       <span className="text-xs text-ink-soft">3D View</span>
       <button
         type="button"
@@ -28,7 +28,7 @@ export function View3DToggle({ active, onToggle }: View3DToggleProps) {
         aria-checked={active}
         aria-label="Toggle 3D view"
         onClick={onToggle}
-        className="relative shrink-0 cursor-pointer appearance-none border transition-colors"
+        className="relative shrink-0 cursor-pointer appearance-none rounded-full border transition-colors"
         style={{
           width: TRACK_WIDTH,
           height: TRACK_HEIGHT,
@@ -38,7 +38,7 @@ export function View3DToggle({ active, onToggle }: View3DToggleProps) {
         }}
       >
         <motion.span
-          className="absolute"
+          className="absolute rounded-full"
           style={{
             left: 0,
             width: THUMB_SIZE,

@@ -65,6 +65,30 @@ export function useBraceletDesigner() {
     });
   }
 
+  /** Put a library bead into a specific slot, replacing whatever was there. */
+  function placeBead(beadId: string, slotIndex: number) {
+    setSlots((prev) => {
+      if (slotIndex < 0 || slotIndex >= prev.length) return prev;
+      const next = [...prev];
+      next[slotIndex] = { placementId: crypto.randomUUID(), beadId };
+      return next;
+    });
+  }
+
+  /** Move a placed bead to another slot, swapping with any bead already there. */
+  function moveBead(fromIndex: number, toIndex: number) {
+    setSlots((prev) => {
+      if (fromIndex === toIndex || !prev[fromIndex] || toIndex >= prev.length) return prev;
+      const next = [...prev];
+      [next[fromIndex], next[toIndex]] = [next[toIndex], next[fromIndex]];
+      return next;
+    });
+  }
+
+  function clearAll() {
+    setSlots((prev) => prev.map(() => null));
+  }
+
   function clearDroppedNotice() {
     setLastDroppedCount(0);
   }
@@ -86,6 +110,9 @@ export function useBraceletDesigner() {
     hasAnyBeads,
     addBead,
     removeBead,
+    placeBead,
+    moveBead,
+    clearAll,
     lastDroppedCount,
     clearDroppedNotice,
   };

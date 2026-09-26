@@ -15,7 +15,7 @@ export function BeadLibrary({ beadDiameterMm, isFull, onAdd }: BeadLibraryProps)
         Bead Library
       </h2>
       <p className="mb-4 text-xs text-ink-faint">
-        Click a bead to add it to your bracelet
+        Click a bead to add it, or drag it onto a specific spot on your bracelet
       </p>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
         {BEAD_CATALOG.map((bead) => (
